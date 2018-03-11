@@ -11,6 +11,8 @@ parser.add_argument("-i", "--inputs", type = int, help = "Inputs for the  select
 args = parser.parse_args()
 
 # Driving the menu
+
+# Check if entered number is Armstrong or not
 if args.option == 2:
 	number = args.inputs
 	onum = args.inputs
@@ -38,3 +40,24 @@ if args.option == 2:
 	# Number is not Armstrong
 	else:
 		print("{} is not an Armstrong number".format(args.inputs))
+
+# Print Fibonacci series upto entered number
+elif args.option == 3:
+	count = args.inputs
+	n1 = 0
+	n2 = 1
+	i = 0
+
+	print("Fibonacci series for {} terms:".format(args.inputs))
+
+	# Calculate the series
+	while i < count:
+		print(n1, end = ', ')
+		nth = n1 + n2
+		n1 = n2
+		n2 = nth
+
+		i += 1
+
+	print()
+
