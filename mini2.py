@@ -49,8 +49,14 @@ if args.option == 1:
 		print("Child process could not be created!")
 
 	else:
-		if args.i3 != 0 or args.i4:
+		try:
 			print("The sum of {} and {} is {}".format(args.i3, args.i4, add(args.i3, args.i4)))
 
-		os.wait()
+			os.wait()
+
+		except TypeError:
+			os.wait()
+
+elif args.option == 2:
+	pass
 
