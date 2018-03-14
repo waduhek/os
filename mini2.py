@@ -7,7 +7,10 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument("option", type = int, choices = [1, 2, 3, 4, 5, 6], help = "Options: 1. Add, 2. Subtract, 3. Multiply, 4. Divide, 5. Modulo, 6. Factorial")
 parser.add_argument("input", type = int, help = "Compulsory input for the calculator.")
-parser.add_argument("-i", "--input2", type = int, help ="Second input for the calculator")
+parser.add_argument("input2", type = int, help ="Second input for the calculator (If not needed put a 0)")
+parser.add_argument("-i3", type = int, help = "Use if 2 operations are to be performed at the same time.(Do not use for factorial)")
+parser.add_argument("-i4", type = int, help = "Use if 2 operations are to be performed at the same time.(Do not use for factorial)")
+
 
 def add(a, b):
 	return a + b
@@ -46,4 +49,8 @@ if args.option == 1:
 		print("Child process could not be created!")
 
 	else:
+		if args.i3 != 0 or args.i4:
+			print("The sum of {} and {} is {}".format(args.i3, args.i4, add(args.i3, args.i4)))
+
 		os.wait()
+
