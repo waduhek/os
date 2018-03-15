@@ -94,8 +94,8 @@ elif pid == 0:
 		os._exit(0)
 
 # Still in parent process
-else:
-	# If 
+# Perform the same tasks as above
+else: 
 	if args.option == 1:
 		print("The sum of {} and {} is {}".format(args.input, args.input2, add(args.input, args.input2)))
 
