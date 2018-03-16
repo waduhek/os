@@ -8,11 +8,11 @@ parser = argparse.ArgumentParser()
 
 # Add positional and optional arguments
 parser.add_argument("option", type = int, choices = [1, 2, 3, 4, 5, 6], help = "Options: 1. Add, 2. Subtract, 3. Multiply, 4. Divide, 5. Modulo, 6. Factorial")
+parser.add_argument("option2", type = int, choices = [0, 1, 2, 3, 4, 5, 6], help = "To perform another operation (Options same as above). Use 0 if not needed")
 parser.add_argument("input", type = int, help = "Compulsory input for the calculator.")
 parser.add_argument("input2", type = int, help ="Second input for the calculator (If not needed put a 0)")
 parser.add_argument("-i3", type = int, help = "Use if 2 operations are to be performed at the same time.(Do not use for factorial)")
 parser.add_argument("-i4", type = int, help = "Use if 2 operations are to be performed at the same time.(Do not use for factorial)")
-
 
 # Utility functions for driving the calculator
 def add(a, b):
@@ -38,7 +38,7 @@ def factorial(a):
 
 	return result
 
-# To get arguments as variables
+# Get arguments as variables
 args = parser.parse_args()
 
 # Create a child process
@@ -83,12 +83,11 @@ elif pid == 0:
 			os._exit(0)
 
 		# Find the factorial
-		elif args.option == 5:
-			print("The factorial of {} is {}".format(args.input, factorial(args.input)))
+		elif args.option == 6:
+			print("The factorial of {} is {}".format(args.input2, factorial(args.input2)))
 
 			os._exit(0)
 
-	
 	# Handle the exception raised if the optional inputs are not present
 	except TypeError:
 		os._exit(0)
@@ -96,34 +95,37 @@ elif pid == 0:
 # Still in parent process
 # Perform the same tasks as above
 else: 
-	if args.option == 1:
+	if args.option2 == 1:
 		print("The sum of {} and {} is {}".format(args.input, args.input2, add(args.input, args.input2)))
 
 		os.wait()
 
-	elif args.option == 2:
+	elif args.option2 == 2:
 		print("The difference between {} and {} is {}".format(args.i3, args.i4, subtract(args.input, args.input2)))
 
 		os.wait()
 
-	elif args.option == 3:
+	elif args.option2 == 3:
 		print("The product of {} and {} is {}".format(args.i3, args.i4, multiply(args.input, args.input2)))
 
 		os.wait()
 
-	elif args.option == 4:
+	elif args.option2 == 4:
 		print("The result of dividing {} by {} is {}".format(args.i3, args.i4, multiply(args.input, args.input2)))
 
 		os.wait()
 
-	elif args.option == 5:
+	elif args.option2 == 5:
 		print("The remainder of dividing {} by {} is {}".format(args.i3, args.i4, modulo(args.input, args.input2)))
 
 		os.wait()
 
-	elif args.option == 5:
+	elif args.option2 == 6:
 		print("The factorial of {} is {}".format(args.input, factorial(args.input2)))
 
+		os.wait()
+
+	else:
 		os.wait()
 
 
