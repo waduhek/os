@@ -85,7 +85,7 @@ elif pid == 0:
 		elif args.option == 6:
 			# Since 'input2' is a positional input, some input is needed
 			# If user enters 0 the second factorial is not calculated
-			if args.input2 != 0
+			if args.input2 != 0:
 				print("The factorial of {} is {}".format(args.input2, factorial(args.input2)))
 
 				os._exit(0)
