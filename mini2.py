@@ -71,7 +71,7 @@ elif pid == 0:
 
 		# Perform division
 		elif args.option == 4:
-			print("The result of dividing {} by {} is {}".format(args.i3, args.i4, multiply(args.i3, args.i4)))
+			print("The result of dividing {} by {} is {}".format(args.i3, args.i4, divide(args.i3, args.i4)))
 
 			os._exit(0)
 
@@ -100,22 +100,22 @@ else:
 		os.wait()
 
 	elif args.option == 2:
-		print("The difference between {} and {} is {}".format(args.i3, args.i4, subtract(args.input, args.input2)))
+		print("The difference between {} and {} is {}".format(args.input, args.input2, subtract(args.input, args.input2)))
 
 		os.wait()
 
 	elif args.option == 3:
-		print("The product of {} and {} is {}".format(args.i3, args.i4, multiply(args.input, args.input2)))
+		print("The product of {} and {} is {}".format(args.input, args.input2, multiply(args.input, args.input2)))
 
 		os.wait()
 
 	elif args.option == 4:
-		print("The result of dividing {} by {} is {}".format(args.i3, args.i4, multiply(args.input, args.input2)))
+		print("The result of dividing {} by {} is {}".format(args.input, args.input2, divide(args.input, args.input2)))
 
 		os.wait()
 
 	elif args.option == 5:
-		print("The remainder of dividing {} by {} is {}".format(args.i3, args.i4, modulo(args.input, args.input2)))
+		print("The remainder of dividing {} by {} is {}".format(args.input, args.input2, modulo(args.input, args.input2)))
 
 		os.wait()
 
