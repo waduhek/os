@@ -1,4 +1,4 @@
-#!/home/bin/env python3
+#!/home/bin/python3
 
 import os 
 import argparse
@@ -120,7 +120,7 @@ else:
 		os.wait()
 
 	elif args.option == 6:
-		print("The factorial of {} is {}".format(args.input, factorial(args.input2)))
+		print("The factorial of {} is {}".format(args.input, factorial(args.input)))
 
 		os.wait()
 
