@@ -40,7 +40,7 @@ def factorial(a):
 # Get arguments as variables
 args = parser.parse_args()
 
-# Create a child process
+# Request to create a child process
 pid = os.fork()
 
 # Child process could not be created
@@ -53,19 +53,19 @@ elif pid == 0:
 	try:
 		# Perform addtion
 		if args.option == 1:
-			print("The sum of {} and {} is {}".format(args.i3, args.i4, add(args.i3, args.i4)))
+			print("The sum of {} and {} is {}.".format(args.i3, args.i4, add(args.i3, args.i4)))
 
 			os._exit(0)
 
 		# Perform subtraction
 		elif args.option == 2:
-			print("The difference between {} and {} is {}".format(args.i3, args.i4, subtract(args.i3, args.i4)))
+			print("The difference between {} and {} is {}.".format(args.i3, args.i4, subtract(args.i3, args.i4)))
 
 			os._exit(0)
 
 		# Perform multiplication
 		elif args.option == 3:
-			print("The product of {} and {} is {}".format(args.i3, args.i4, multiply(args.i3, args.i4)))
+			print("The product of {} and {} is {}.".format(args.i3, args.i4, multiply(args.i3, args.i4)))
 
 			os._exit(0)
 
@@ -73,7 +73,7 @@ elif pid == 0:
 		elif args.option == 4:
 			# Check for division by 0
 			try:
-				print("The result of dividing {} by {} is {}".format(args.i3, args.i4, divide(args.i3, args.i4)))
+				print("The result of dividing {} by {} is {}.".format(args.i3, args.i4, divide(args.i3, args.i4)))
 
 				os._exit(0)
 
@@ -86,7 +86,7 @@ elif pid == 0:
 		# Perform modulo
 		elif args.option == 5:
 			try:
-				print("The remainder of dividing {} by {} is {}".format(args.i3, args.i4, modulo(args.i3, args.i4)))
+				print("The remainder of dividing {} by {} is {}.".format(args.i3, args.i4, modulo(args.i3, args.i4)))
 
 				os._exit(0)
 
@@ -100,14 +100,15 @@ elif pid == 0:
 			# Since 'input2' is a positional input, some input is needed
 			# If user enters 0 the second factorial is not calculated
 			if args.input2 != 0:
-				print("The factorial of {} is {}".format(args.input2, factorial(args.input2)))
+				print("The factorial of {} is {}.".format(args.input2, factorial(args.input2)))
 
 				os._exit(0)
 
 			else:
 				os._exit(0)
 
-	# Handle the exception raised if the optional inputs are not present which will be NoneTypeError
+	# Handle the exception raised if the optional inputs are not present
+	# Exception raised will be NoneTypeError
 	except TypeError:
 		os._exit(0)
 
@@ -115,23 +116,23 @@ elif pid == 0:
 # Perform the same tasks as above
 else: 
 	if args.option == 1:
-		print("The sum of {} and {} is {}".format(args.input, args.input2, add(args.input, args.input2)))
+		print("The sum of {} and {} is {}.".format(args.input, args.input2, add(args.input, args.input2)))
 
 		os.wait()
 
 	elif args.option == 2:
-		print("The difference between {} and {} is {}".format(args.input, args.input2, subtract(args.input, args.input2)))
+		print("The difference between {} and {} is {}.".format(args.input, args.input2, subtract(args.input, args.input2)))
 
 		os.wait()
 
 	elif args.option == 3:
-		print("The product of {} and {} is {}".format(args.input, args.input2, multiply(args.input, args.input2)))
+		print("The product of {} and {} is {}.".format(args.input, args.input2, multiply(args.input, args.input2)))
 
 		os.wait()
 
 	elif args.option == 4:
 		try:
-			print("The result of dividing {} by {} is {}".format(args.input, args.input2, divide(args.input, args.input2)))
+			print("The result of dividing {} by {} is {}.".format(args.input, args.input2, divide(args.input, args.input2)))
 
 			os.wait()
 
@@ -142,7 +143,7 @@ else:
 
 	elif args.option == 5:
 		try:
-			print("The remainder of dividing {} by {} is {}".format(args.input, args.input2, modulo(args.input, args.input2)))
+			print("The remainder of dividing {} by {} is {}.".format(args.input, args.input2, modulo(args.input, args.input2)))
 
 			os.wait()
 
@@ -152,7 +153,7 @@ else:
 			os.wait()
 
 	elif args.option == 6:
-		print("The factorial of {} is {}".format(args.input, factorial(args.input)))
+		print("The factorial of {} is {}.".format(args.input, factorial(args.input)))
 
 		os.wait()
 
