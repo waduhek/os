@@ -71,15 +71,29 @@ elif pid == 0:
 
 		# Perform division
 		elif args.option == 4:
-			print("The result of dividing {} by {} is {}".format(args.i3, args.i4, divide(args.i3, args.i4)))
+			# Check for division by 0
+			try:
+				print("The result of dividing {} by {} is {}".format(args.i3, args.i4, divide(args.i3, args.i4)))
 
-			os._exit(0)
+				os._exit(0)
+
+			# Handle ZeroDivisionError if 0 is the divisor
+			except ArithmeticError:
+				print("Illegal division!")
+
+				os._exit(0)
 
 		# Perform modulo
 		elif args.option == 5:
-			print("The remainder of dividing {} by {} is {}".format(args.i3, args.i4, modulo(args.i3, args.i4)))
+			try:
+				print("The remainder of dividing {} by {} is {}".format(args.i3, args.i4, modulo(args.i3, args.i4)))
 
-			os._exit(0)
+				os._exit(0)
+
+			except ArithmeticError:
+				print("Illegal operation!")
+
+				os._exit(0)
 
 		# Find the factorial
 		elif args.option == 6:
@@ -93,7 +107,7 @@ elif pid == 0:
 			else:
 				os._exit(0)
 
-	# Handle the exception raised if the optional inputs are not present
+	# Handle the exception raised if the optional inputs are not present which will be NoneTypeError
 	except TypeError:
 		os._exit(0)
 
@@ -116,14 +130,26 @@ else:
 		os.wait()
 
 	elif args.option == 4:
-		print("The result of dividing {} by {} is {}".format(args.input, args.input2, divide(args.input, args.input2)))
+		try:
+			print("The result of dividing {} by {} is {}".format(args.input, args.input2, divide(args.input, args.input2)))
 
-		os.wait()
+			os.wait()
+
+		except ArithmeticError:
+			print("Illegal division!")
+
+			os.wait()
 
 	elif args.option == 5:
-		print("The remainder of dividing {} by {} is {}".format(args.input, args.input2, modulo(args.input, args.input2)))
+		try:
+			print("The remainder of dividing {} by {} is {}".format(args.input, args.input2, modulo(args.input, args.input2)))
 
-		os.wait()
+			os.wait()
+
+		except ArithmeticError:
+			print("Illegal operation!")
+
+			os.wait()
 
 	elif args.option == 6:
 		print("The factorial of {} is {}".format(args.input, factorial(args.input)))
