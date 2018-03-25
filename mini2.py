@@ -49,6 +49,10 @@ if pid < 0:
 
 # Child process was successfully created
 elif pid == 0:
+	print()
+	print("The returned value from fork is:", pid)
+	print("The process ID is:", os.getpid())
+
 	# Check if optional inputs were provided or not
 	try:
 		# Perform addtion
@@ -107,6 +111,8 @@ elif pid == 0:
 			else:
 				os._exit(0)
 
+		#print("Inside child.")
+
 	# Handle the exception raised if the optional inputs are not present
 	# Exception raised will be NoneTypeError
 	except TypeError:
@@ -114,7 +120,11 @@ elif pid == 0:
 
 # Still in parent process
 # Perform the same tasks as above
-else: 
+else:
+	print()
+	print("The value returned from fork is:", pid)
+	print("The process ID is:", os.getpid())
+	
 	if args.option == 1:
 		print("The sum of {} and {} is {}.".format(args.input, args.input2, add(args.input, args.input2)))
 
@@ -160,4 +170,7 @@ else:
 	else:
 		os.wait()
 
+	#print("Inside parent.")
+	
+print()
 
