@@ -10,7 +10,7 @@ parser = argparse.ArgumentParser()
 # Add positional and optional arguments
 parser.add_argument("option", type = int, choices = [1, 2, 3, 4, 5, 6], help = "Options: 1. Add, 2. Subtract, 3. Multiply, 4. Divide, 5. Modulo, 6. Factorial")
 parser.add_argument("input", type = int, help = "Compulsory input for the calculator.")
-parser.add_argument("input2", type = int, help ="Second input for the calculator (If not needed put a 0).")
+parser.add_argument("input2", type = int, help ="Second input for the calculator (Put 0 for factorial calculation).")
 
 # Utility functions for driving the calculator
 def add(a, b):
@@ -39,6 +39,7 @@ def factorial(a):
 # Get arguments as variables
 args = parser.parse_args()
 
+# Generate a random number and assign it to a flag variable
 if randint(0, 3) > 0:
 	k = 1
 
@@ -106,15 +107,9 @@ if pid == 0 and k == 0:
 
 		# Find the factorial
 		elif args.option == 6:
-			# Since 'input2' is a positional input, some input is needed
-			# If user enters 0 the second factorial is not calculated
-			if args.input2 != 0:
-				print("The factorial of {} is {}.".format(args.input2, factorial(args.input2)))
+			print("The factorial of {} is {}.".format(args.input, factorial(args.input)))
 
-				os._exit(0)
-
-			else:
-				os._exit(0)
+			os._exit(0)
 
 	# Handle the exception raised if the optional inputs are not present
 	# Exception raised will be NoneTypeError
