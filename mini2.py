@@ -2,6 +2,7 @@
 
 import os 
 import argparse
+from random import randint
 
 # Initialise the parser
 parser = argparse.ArgumentParser()
@@ -9,9 +10,7 @@ parser = argparse.ArgumentParser()
 # Add positional and optional arguments
 parser.add_argument("option", type = int, choices = [1, 2, 3, 4, 5, 6], help = "Options: 1. Add, 2. Subtract, 3. Multiply, 4. Divide, 5. Modulo, 6. Factorial")
 parser.add_argument("input", type = int, help = "Compulsory input for the calculator.")
-parser.add_argument("input2", type = int, help ="Second input for the calculator (If not needed put a 0)")
-parser.add_argument("-i3", type = int, help = "Use if 2 operations are to be performed at the same time.(Do not use for factorial)")
-parser.add_argument("-i4", type = int, help = "Use if 2 operations are to be performed at the same time.(Do not use for factorial)")
+parser.add_argument("input2", type = int, help ="Second input for the calculator (If not needed put a 0).")
 
 # Utility functions for driving the calculator
 def add(a, b):
@@ -40,6 +39,13 @@ def factorial(a):
 # Get arguments as variables
 args = parser.parse_args()
 
+if randint(0, 3) > 0:
+	k = 1
+
+else:
+	k = 0
+
+# Create a child process only if the optional inputs are present
 # Request to create a child process
 pid = os.fork()
 
@@ -47,29 +53,28 @@ pid = os.fork()
 if pid < 0:
 	print("Child process could not be created!")
 
+
 # Child process was successfully created
-elif pid == 0:
-	print()
-	print("The returned value from fork is:", pid)
+if pid == 0 and k == 0:
+	print("\nThe returned value from fork is:", pid)
 	print("The process ID is:", os.getpid())
 
 	# Check if optional inputs were provided or not
 	try:
 		# Perform addtion
 		if args.option == 1:
-			print("The sum of {} and {} is {}.".format(args.i3, args.i4, add(args.i3, args.i4)))
-
+			print("The sum of {} and {} is {}.".format(args.input, args.input2, add(args.input, args.input2)))
 			os._exit(0)
 
 		# Perform subtraction
 		elif args.option == 2:
-			print("The difference between {} and {} is {}.".format(args.i3, args.i4, subtract(args.i3, args.i4)))
+			print("The difference between {} and {} is {}.".format(args.input, args.input2, subtract(args.input, args.input2)))
 
 			os._exit(0)
 
 		# Perform multiplication
 		elif args.option == 3:
-			print("The product of {} and {} is {}.".format(args.i3, args.i4, multiply(args.i3, args.i4)))
+			print("The product of {} and {} is {}.".format(args.input, args.input2, multiply(args.input, args.input2)))
 
 			os._exit(0)
 
@@ -77,7 +82,7 @@ elif pid == 0:
 		elif args.option == 4:
 			# Check for division by 0
 			try:
-				print("The result of dividing {} by {} is {}.".format(args.i3, args.i4, divide(args.i3, args.i4)))
+				print("The result of dividing {} by {} is {}.".format(args.input, args.input2, divide(args.input, args.input2)))
 
 				os._exit(0)
 
@@ -90,7 +95,7 @@ elif pid == 0:
 		# Perform modulo
 		elif args.option == 5:
 			try:
-				print("The remainder of dividing {} by {} is {}.".format(args.i3, args.i4, modulo(args.i3, args.i4)))
+				print("The remainder of dividing {} by {} is {}.".format(args.input, args.input2, modulo(args.input, args.input2)))
 
 				os._exit(0)
 
@@ -111,51 +116,82 @@ elif pid == 0:
 			else:
 				os._exit(0)
 
-		#print("Inside child.")
-
 	# Handle the exception raised if the optional inputs are not present
 	# Exception raised will be NoneTypeError
 	except TypeError:
+		print("Since no inputs are provided, operation was performed by the parent process.")
+
 		os._exit(0)
 
 # Still in parent process
 # Perform the same tasks as above
-else:
-	print()
-	print("The value returned from fork is:", pid)
+if pid > 0 and k == 1:
+	print("\nThe value returned from fork is:", pid)
 	print("The process ID is:", os.getpid())
-	
+
 	if args.option == 1:
 		print("The sum of {} and {} is {}.".format(args.input, args.input2, add(args.input, args.input2)))
 
-		os.wait()
+		# Check if child process was created or not
+		# Do the same for the rest of the rest of the options
+		try:
+			if k == 0:
+				os.wait()
+
+		except ChildProcessError:
+			os._exit(0)
 
 	elif args.option == 2:
 		print("The difference between {} and {} is {}.".format(args.input, args.input2, subtract(args.input, args.input2)))
 
-		os.wait()
+		try:
+			if k == 0:
+				os.wait()
+
+		except ChildProcessError:
+			os._exit(0)
 
 	elif args.option == 3:
 		print("The product of {} and {} is {}.".format(args.input, args.input2, multiply(args.input, args.input2)))
 
-		os.wait()
+		try:
+			if k == 0:
+				os.wait()
+
+		except ChildProcessError:
+			os._exit(0)
 
 	elif args.option == 4:
 		try:
 			print("The result of dividing {} by {} is {}.".format(args.input, args.input2, divide(args.input, args.input2)))
 
-			os.wait()
+			try:
+				if k == 0:
+					os.wait()
+
+			except ChildProcessError:
+				os._exit(0)
 
 		except ArithmeticError:
 			print("Illegal division!")
 
-			os.wait()
+			try:
+				if k == 0:
+					os.wait()
+
+			except ChildProcessError:
+				os._exit(0)
 
 	elif args.option == 5:
 		try:
 			print("The remainder of dividing {} by {} is {}.".format(args.input, args.input2, modulo(args.input, args.input2)))
 
-			os.wait()
+			try:
+				if k == 0:
+					os.wait()
+
+			except ChildProcessError:
+				os._exit(0)
 
 		except ArithmeticError:
 			print("Illegal operation!")
@@ -165,12 +201,19 @@ else:
 	elif args.option == 6:
 		print("The factorial of {} is {}.".format(args.input, factorial(args.input)))
 
-		os.wait()
+		try:
+			if k == 0:
+				os.wait()
+
+		except ChildProcessError:
+			os._exit(0)
 
 	else:
-		os.wait()
+		try:
+			if k == 0:
+				os.wait()
 
-	#print("Inside parent.")
-	
-print()
+		except ChildProcessError:
+			os._exit(0)
+
 
